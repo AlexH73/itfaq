@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Настройки приватности</title>
+</head>
+<body>
+<h2>Настройки приватности разделов</h2>
+<form th:action="@{/admin/privacy}" th:object="${settingsForm}" method="post">
+    <table>
+        <tr>
+            <th>Раздел</th>
+            <th>Доступ</th>
+        </tr>
+        <tr th:each="setting,iterStat : ${settings}">
+            <td th:text="${setting.section}"></td>
+            <td>
+                <select th:name="settings[__${iterStat.index}__].mode">
+                    <option th:value="public" th:selected="${setting.mode == 'public'}">Доступен всем</option>
+                    <option th:value="authenticated" th:selected="${setting.mode == 'authenticated'}">Только авторизованным</option>
+                </select>
+                <input type="hidden" th:name="settings[__${iterStat.index}__].section" th:value="${setting.section}" />
+            </td>
+        </tr>
+    </table>
+    <button type="submit">Сохранить</button>
+    <div th:if="${#request.getParameter('success') != null}">
+        <p style="color: green;">Сохранено!</p>
+    </div>
+</form>
+</body>
+</html>
