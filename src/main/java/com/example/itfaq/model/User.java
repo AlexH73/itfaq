@@ -12,7 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -20,6 +21,8 @@ public class User {
 
     private String password;
     private String email;
+
+    @Builder.Default
     private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)

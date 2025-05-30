@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,7 +19,7 @@ public class AdminPrivacyController {
     private final PrivacySettingRepository privacySettingRepository;
 
     @GetMapping
-    public String privacySettings(Model model) {
+    public String privacySettings(Model model, @RequestParam(value = "success", required = false) String success) {
         List<PrivacySetting> settings = privacySettingRepository.findAll();
         PrivacySettingForm form = new PrivacySettingForm();
         form.setSettings(settings.stream()
@@ -30,13 +31,19 @@ public class AdminPrivacyController {
                 }).toList());
         model.addAttribute("settings", settings);
         model.addAttribute("settingsForm", form);
+        model.addAttribute("success", success != null);
         return "admin/privacy-settings";
     }
 
     @PostMapping
     public String updatePrivacySettings(@ModelAttribute("settingsForm") PrivacySettingForm form) {
-        for (PrivacySettingForm.Setting s : form.getSettings()) {
-            privacySettingRepository.save(new PrivacySetting(s.getSection(), s.getMode()));
+        if (form.getSettings() == null) {
+            form.setSettings(new ArrayList<>());
+        }
+        if (form.getSettings() != null) {
+            for (PrivacySettingForm.Setting s : form.getSettings()) {
+                privacySettingRepository.save(new PrivacySetting(s.getSection(), s.getMode()));
+            }
         }
         return "redirect:/admin/privacy?success";
     }
@@ -45,6 +52,10 @@ public class AdminPrivacyController {
     @lombok.Data
     public static class PrivacySettingForm {
         private List<Setting> settings;
+
+        public PrivacySettingForm() {
+            this.settings = new ArrayList<>();
+        }
 
         @lombok.Data
         public static class Setting {
