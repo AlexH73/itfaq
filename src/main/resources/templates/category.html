@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Категория: ' + ${category.name}">Категория</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+<h1 th:text="'Категория: ' + ${category.name}">Категория</h1>
+
+<div class="switch-links">
+    <span>Ссылки на эту категорию:</span>
+    <a th:href="@{'/category/' + ${category.id}}">по id</a>
+    <a th:href="@{'/category'(name=${category.name})}">по имени</a>
+    <a href="/">На главную</a>
+</div>
+
+<h2>Вопросы</h2>
+<ul class="questions-list">
+    <li th:each="q : ${questions}">
+        <a th:href="@{'/question/' + ${q.id}}" th:text="${q.question}">Вопрос</a>
+    </li>
+</ul>
+<div th:if="${questions.size() == 0}">
+    В этой категории пока нет вопросов.
+</div>
+</body>
+</html>

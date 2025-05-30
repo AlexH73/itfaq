@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${question.question}">Вопрос</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+<a href="/" style="font-size:0.9em;">← На главную</a>
+<h1 th:text="${question.question}">Вопрос</h1>
+
+<div class="question-meta">
+        <span th:if="${question.category != null}">
+            Категория:
+            <a th:href="@{'/category/' + ${question.category.id}}" th:text="${question.category.name}">Категория</a>
+        </span>
+    <span th:if="${question.language != null}"> | Язык: <span th:text="${question.language}">Язык</span></span>
+    <span th:if="${question.level != null}"> | Уровень: <span th:text="${question.level}">Уровень</span></span>
+    <span th:if="${question.topic != null}"> | Тема: <span th:text="${question.topic}">Тема</span></span>
+</div>
+
+<div class="section-block">
+    <div class="answer-short" th:if="${question.shortAnswer != null}" th:text="${question.shortAnswer}">Краткий ответ</div>
+    <div th:if="${question.detailedAnswer != null}">
+        <h3>Подробный ответ</h3>
+        <div th:text="${question.detailedAnswer}">Подробный ответ</div>
+    </div>
+</div>
+
+<div>
+    <a th:href="@{'/category/' + ${question.category.id}}">← Назад к категории</a>
+</div>
+</body>
+</html>
