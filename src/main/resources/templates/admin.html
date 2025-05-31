@@ -3,20 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Админ-панель</title>
-    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="../static/admin/styles.css">
+    <link rel="stylesheet" href="/admin/styles.css">
 </head>
 <body>
-<h2>Админ-панель</h2>
-<p>Добро пожаловать в панель администратора!</p>
-<ul>
-    <li><a href="/admin/news">Управление новостями</a></li>
-    <li><a href="/admin/users">Управление пользователями</a></li>
-    <li><a href="/admin/utils">Управление утилитами</a></li>
-    <li><a href="/admin/privacy">Настройки приватности</a></li>
-    <li><a href="/admin/categories">Управление категориями</a></li>
-    <li><a href="/admin/questions">Управление FAQ</a></li>
-    <!-- Добавляй пункты по мере развития -->
-</ul>
-<a href="/">На главную</a>
+    <div class="admin-panel-container">
+        <h2>Админ-панель</h2>
+        <p>Добро пожаловать в панель администратора!</p>
+        <div class="admin-blocks">
+            <a href="/admin/news" class="admin-block">
+                <span class="icon">
+                    <!-- Новости -->
+                    <svg width="32" height="32" fill="none"><rect x="4" y="8" width="24" height="16" rx="3" fill="#4f8cff"/><rect x="8" y="12" width="16" height="2" fill="#fff"/><rect x="8" y="16" width="10" height="2" fill="#fff"/></svg>
+                </span>
+                <span>
+                    <strong>Новости</strong>
+                    <small>Управление новостями сайта</small>
+                </span>
+            </a>
+            <a href="/admin/users" class="admin-block">
+                <span class="icon">
+                    <!-- Пользователи -->
+                    <svg width="32" height="32" fill="none"><circle cx="16" cy="13" r="6" fill="#4f8cff"/><rect x="7" y="22" width="18" height="6" rx="3" fill="#4f8cff"/></svg>
+                </span>
+                <span>
+                    <strong>Пользователи</strong>
+                    <small>Управление аккаунтами</small>
+                </span>
+            </a>
+            <a href="/admin/utils" class="admin-block">
+                <span class="icon">
+                    <!-- Утилиты -->
+                    <svg width="32" height="32" fill="none"><rect x="8" y="8" width="16" height="16" rx="4" fill="#4f8cff"/><rect x="14" y="14" width="4" height="4" fill="#fff"/></svg>
+                </span>
+                <span>
+                    <strong>Утилиты</strong>
+                    <small>Вспомогательные инструменты</small>
+                </span>
+            </a>
+            <a href="/admin/privacy" class="admin-block">
+                <span class="icon">
+                    <!-- Приватность -->
+                    <svg width="32" height="32" fill="none"><ellipse cx="16" cy="18" rx="10" ry="6" fill="#4f8cff"/><circle cx="16" cy="18" r="3" fill="#fff"/></svg>
+                </span>
+                <span>
+                    <strong>Приватность</strong>
+                    <small>Настройки приватности</small>
+                </span>
+            </a>
+            <a href="/admin/categories" class="admin-block">
+                <span class="icon">
+                    <!-- Категории -->
+                    <svg width="32" height="32" fill="none"><rect x="6" y="10" width="8" height="12" rx="2" fill="#4f8cff"/><rect x="18" y="10" width="8" height="12" rx="2" fill="#4f8cff"/></svg>
+                </span>
+                <span>
+                    <strong>Категории</strong>
+                    <small>Управление категориями</small>
+                </span>
+            </a>
+            <a href="/admin/questions" class="admin-block">
+                <span class="icon">
+                    <!-- FAQ -->
+                    <svg width="32" height="32" fill="none"><circle cx="16" cy="16" r="12" fill="#4f8cff"/><text x="16" y="22" text-anchor="middle" font-size="16" fill="#fff" font-family="Arial" font-weight="bold">?</text></svg>
+                </span>
+                <span>
+                    <strong>FAQ</strong>
+                    <small>Управление вопросами</small>
+                </span>
+            </a>
+        </div>
+        <a href="/" class="home-link">На главную</a>
+    </div>
 </body>
 </html>

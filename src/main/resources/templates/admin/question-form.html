@@ -1,45 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Вопрос</title>
+    <meta charset="UTF-8">
+    <title th:text="${question.id == null ? 'Создать вопрос' : 'Редактировать вопрос'}"></title>
+    <link rel="stylesheet" th:href="@{/admin/styles.css}">
 </head>
 <body>
-<nav>
-    <a th:href="@{/admin}">Главная админки</a>
-    <a href="javascript:history.back()">Назад</a>
-</nav>
-<h1 th:text="${question.id == null ? 'Создать вопрос' : 'Редактировать вопрос'}"></h1>
-<form th:action="@{${question.id == null} ? '/admin/questions/create' : '/admin/questions/edit/' + ${question.id}}" th:object="${question}" method="post">
-    <label for="question">Вопрос:</label>
-    <input type="text" id="question" th:field="*{question}" required>
-    <br>
-    <label for="shortAnswer">Краткий ответ:</label>
-    <input type="text" id="shortAnswer" th:field="*{shortAnswer}" required>
-    <br>
-    <label for="detailedAnswer">Подробный ответ:</label>
-    <textarea id="detailedAnswer" th:field="*{detailedAnswer}" required></textarea>
-    <br>
-    <label for="category">Категория:</label>
-    <select id="category" th:field="*{category}" required>
-        <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
-    </select>
-    <br>
-    <label for="author">Автор:</label>
-    <select id="author" th:field="*{author}" required>
-        <option th:each="usr : ${users}" th:value="${usr.id}" th:text="${usr.username}"></option>
-    </select>
-    <br>
-    <label for="language">Язык:</label>
-    <input type="text" id="language" th:field="*{language}">
-    <br>
-    <label for="level">Уровень:</label>
-    <input type="text" id="level" th:field="*{level}">
-    <br>
-    <label for="topic">Тема:</label>
-    <input type="text" id="topic" th:field="*{topic}">
-    <br>
-    <button type="submit">Сохранить</button>
-</form>
-<a th:href="@{/admin/questions}">К списку</a>
+<div class="admin-panel-container">
+    <nav class="admin-nav">
+        <a th:href="@{/admin}">Главная</a>
+        <a th:href="@{/admin/questions}" class="active">Вопросы</a>
+    </nav>
+    <h2 th:text="${question.id == null ? 'Создать вопрос' : 'Редактировать вопрос'}"></h2>
+    <form th:action="@{${question.id == null} ? '/admin/questions/create' : '/admin/questions/edit/' + ${question.id}}" th:object="${question}" method="post">
+        <label for="question">Вопрос:</label>
+        <input type="text" id="question" th:field="*{question}" required>
+
+        <label for="shortAnswer">Краткий ответ:</label>
+        <input type="text" id="shortAnswer" th:field="*{shortAnswer}" required>
+
+        <label for="detailedAnswer">Подробный ответ:</label>
+        <textarea id="detailedAnswer" th:field="*{detailedAnswer}" rows="6" required></textarea>
+
+        <label for="category">Категория:</label>
+        <select id="category" th:field="*{category}" required>
+            <option value="">-- выберите --</option>
+            <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+        </select>
+
+        <label for="author">Автор:</label>
+        <select id="author" th:field="*{author}" required>
+            <option value="">-- выберите --</option>
+            <option th:each="usr : ${users}" th:value="${usr.id}" th:text="${usr.username}"></option>
+        </select>
+
+        <label for="language">Язык:</label>
+        <input type="text" id="language" th:field="*{language}">
+
+        <label for="level">Уровень:</label>
+        <input type="text" id="level" th:field="*{level}">
+
+        <label for="topic">Тема:</label>
+        <input type="text" id="topic" th:field="*{topic}">
+
+        <button type="submit" class="button">Сохранить</button>
+        <a th:href="@{/admin/questions}" class="button" style="background:#e9eef6;color:#2d3a4b;">К списку</a>
+    </form>
+</div>
 </body>
 </html>

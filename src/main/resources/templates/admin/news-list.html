@@ -2,31 +2,48 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="../static/admin/styles.css">
+    <link rel="stylesheet" th:href="@{/admin/styles.css}">
     <title>Управление новостями</title>
 </head>
 <body>
-<h2>Новости</h2>
-<a th:href="@{/admin/news/create}">Создать новость</a>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Заголовок</th>
-        <th>Автор</th>
-        <th>Создано</th>
-        <th>Действия</th>
-    </tr>
-    <tr th:each="news : ${newsList}">
-        <td th:text="${news.id}"></td>
-        <td th:text="${news.title}"></td>
-        <td th:text="${news.author != null ? news.author.username : '—'}"></td>
-        <td th:text="${#temporals.format(news.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
-        <td>
-            <a th:href="@{/admin/news/edit/{id}(id=${news.id})}">Редактировать</a>
-            <form th:action="@{/admin/news/delete/{id}(id=${news.id})}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Удалить новость?')">Удалить</button>
-            </form>
-        </td>
-    </tr>
-</table>
+    <div class="admin-panel-container">
+        <nav class="admin-nav">
+            <a th:href="@{/admin}">Главная</a>
+            <a th:href="@{/admin/news}" class="active">Новости</a>
+            <a th:href="@{/admin/users}">Пользователи</a>
+            <a th:href="@{/admin/categories}">Категории</a>
+            <a th:href="@{/admin/questions}">Вопросы</a>
+            <a th:href="@{/admin/privacy}">Приватность</a>
+        </nav>
+        <h2>Новости</h2>
+        <a th:href="@{/admin/news/create}" class="button">Создать новость</a>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Заголовок</th>
+                <th>Автор</th>
+                <th>Создано</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="news : ${newsList}">
+                <td th:text="${news.id}"></td>
+                <td th:text="${news.title}"></td>
+                <td th:text="${news.author != null ? news.author.username : '—'}"></td>
+                <td th:text="${#temporals.format(news.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                <td>
+                    <a th:href="@{/admin/news/edit/{id}(id=${news.id})}" class="button">Редактировать</a>
+                    <form th:action="@{/admin/news/delete/{id}(id=${news.id})}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Удалить новость?')" class="button" style="background:#e53e3e;">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

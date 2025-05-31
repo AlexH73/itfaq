@@ -3,24 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Настройки приватности</title>
+    <link rel="stylesheet" th:href="@{/admin/styles.css}">
 </head>
 <body>
-<h2>Настройки приватности разделов</h2>
-<form th:action="@{/admin/privacy}" th:object="${settingsForm}" method="post">
-    <table>
-        <tr th:each="setting,iterStat : ${settingsForm.settings}">
-            <td>
-                <input type="hidden" th:field="*{settings[__${iterStat.index}__].section}" />
-            </td>
-            <td>
-                <select th:field="*{settings[__${iterStat.index}__].mode}">
-                    <option value="public">Доступен всем</option>
-                    <option value="authenticated">Только авторизованным</option>
-                </select>
-            </td>
-        </tr>
-    </table>
-    <button type="submit">Сохранить</button>
-</form>
+<div class="admin-panel-container">
+    <nav class="admin-nav">
+        <a th:href="@{/admin}">Главная</a>
+        <a th:href="@{/admin/news}">Новости</a>
+        <a th:href="@{/admin/users}">Пользователи</a>
+        <a th:href="@{/admin/categories}">Категории</a>
+        <a th:href="@{/admin/questions}">Вопросы</a>
+        <a th:href="@{/admin/privacy}" class="active">Приватность</a>
+    </nav>
+    <h2>Настройки приватности разделов</h2>
+    <form th:action="@{/admin/privacy}" th:object="${settingsForm}" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Раздел</th>
+                    <th>Доступ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="setting,iterStat : ${settingsForm.settings}">
+                    <td>
+                        <span th:text="${setting.section}"></span>
+                        <input type="hidden" th:field="*{settings[__${iterStat.index}__].section}" />
+                    </td>
+                    <td>
+                        <select th:field="*{settings[__${iterStat.index}__].mode}">
+                            <option value="public">Доступен всем</option>
+                            <option value="authenticated">Только авторизованным</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="button">Сохранить</button>
+    </form>
+</div>
 </body>
 </html>

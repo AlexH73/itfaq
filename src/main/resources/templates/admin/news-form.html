@@ -2,37 +2,50 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/admin/styles.css}">
     <title th:text="${news.id == null ? 'Создать новость' : 'Редактировать новость'}"></title>
 </head>
 <body>
-<h2 th:text="${news.id == null ? 'Создать новость' : 'Редактировать новость'}"></h2>
-<form th:action="@{${news.id == null} ? '/admin/news/create' : '/admin/news/edit/' + ${news.id}}" th:object="${news}" method="post">
-    <label for="title">Заголовок:</label>
-    <input type="text" id="title" th:field="*{title}" required/><br/>
-    <label for="category">Категория:</label>
-    <select id="category" name="category.id">
-        <option value="">-- выберите --</option>
-        <option th:each="cat : ${categories}"
-                th:value="${cat.id}"
-                th:text="${cat.name}"
-                th:selected="${news.category != null} ? ${cat.id} == ${news.category.id} : false">
-        </option>
-    </select><br/>
-    <label for="content">Текст:</label><br/>
-    <textarea id="content" th:field="*{content}" rows="10" cols="60" required></textarea><br/>
-
-    <label for="authorId">Автор:</label>
-    <select id="authorId" name="authorId">
-        <option value="">[Выбрать автоматически]</option>
-        <option th:each="user : ${users}"
-                th:value="${user.id}"
-                th:text="${user.username}"
-                th:selected="${news.author != null} ? ${user.id} == ${news.author.id} : false">
-        </option>
-    </select><br/>
-
-    <button type="submit">Сохранить</button>
-    <a th:href="@{/admin/news}">Отмена</a>
-</form>
+    <div class="admin-panel-container">
+        <nav class="admin-nav">
+            <a th:href="@{/admin}">Главная</a>
+            <a th:href="@{/admin/news}" class="active">Новости</a>
+            <a th:href="@{/admin/users}">Пользователи</a>
+            <a th:href="@{/admin/categories}">Категории</a>
+            <a th:href="@{/admin/questions}">Вопросы</a>
+            <a th:href="@{/admin/privacy}">Приватность</a>
+        </nav>
+        <h2 th:text="${news.id == null ? 'Создать новость' : 'Редактировать новость'}"></h2>
+        <form th:action="@{${news.id == null} ? '/admin/news/create' : '/admin/news/edit/' + ${news.id}}" th:object="${news}" method="post">
+            <label for="title">Заголовок:</label>
+            <input type="text" id="title" th:field="*{title}" required>
+    
+            <label for="category">Категория:</label>
+            <select id="category" name="category.id" required>
+                <option value="">-- выберите --</option>
+                <option th:each="cat : ${categories}"
+                        th:value="${cat.id}"
+                        th:text="${cat.name}"
+                        th:selected="${news.category != null} ? ${cat.id} == ${news.category.id} : false">
+                </option>
+            </select>
+    
+            <label for="content">Текст:</label>
+            <textarea id="content" th:field="*{content}" rows="10" required></textarea>
+    
+            <label for="authorId">Автор:</label>
+            <select id="authorId" name="authorId">
+                <option value="">[Выбрать автоматически]</option>
+                <option th:each="user : ${users}"
+                        th:value="${user.id}"
+                        th:text="${user.username}"
+                        th:selected="${news.author != null} ? ${user.id} == ${news.author.id} : false">
+                </option>
+            </select>
+    
+            <button type="submit" class="button">Сохранить</button>
+            <a th:href="@{/admin/news}" class="button" style="background:#e9eef6;color:#2d3a4b;">Отмена</a>
+        </form>
+    </div>
 </body>
 </html>

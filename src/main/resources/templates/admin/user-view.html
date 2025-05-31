@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Пользователь</title>
+    <link rel="stylesheet" th:href="@{/admin/styles.css}">
 </head>
 <body>
-<nav>
-    <a th:href="@{/admin}">Главная админки</a>
-    <a th:href="@{/admin/users}">Назад</a>
-</nav>
-<h1>Пользователь: <span th:text="${user.username}"></span></h1>
-<ul>
-    <li>ID: <span th:text="${user.id}"></span></li>
-    <li>Email: <span th:text="${user.email}"></span></li>
-    <li>Роли: <span th:text="${user.roles}"></span></li>
-    <!-- Добавьте другие поля при необходимости -->
-</ul>
-<a th:href="@{'/admin/users/edit/' + ${user.id}}">Редактировать</a>
-<a th:href="@{/admin/users}">К списку</a>
+<div class="admin-panel-container">
+    <nav class="admin-nav">
+        <a th:href="@{/admin}">Главная</a>
+        <a th:href="@{/admin/users}" class="active">Пользователи</a>
+    </nav>
+    <h2>Пользователь: <span th:text="${user.username}"></span></h2>
+    <ul>
+        <li><strong>ID:</strong> <span th:text="${user.id}"></span></li>
+        <li><strong>Email:</strong> <span th:text="${user.email}"></span></li>
+        <li><strong>Пароль:</strong> <span th:text="${user.password}"></span></li>
+        <li><strong>Роли:</strong> <span th:text="${user.roles}"></span></li>
+        <!-- Добавьте другие поля при необходимости -->
+    </ul>
+    <a th:href="@{'/admin/users/edit/' + ${user.id}}" class="button">Редактировать</a>
+    <a th:href="@{/admin/users}" class="button" style="background:#e9eef6;color:#2d3a4b;">К списку</a>
+</div>
 </body>
 </html>
