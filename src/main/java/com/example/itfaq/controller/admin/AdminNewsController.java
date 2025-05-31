@@ -1,4 +1,4 @@
-package com.example.itfaq.controller;
+package com.example.itfaq.controller.admin;
 
 import com.example.itfaq.model.News;
 import com.example.itfaq.model.User;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/news")

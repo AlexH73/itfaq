@@ -1,4 +1,4 @@
-package com.example.itfaq.controller;
+package com.example.itfaq.controller.admin;
 
 import com.example.itfaq.model.PrivacySetting;
 import com.example.itfaq.repository.PrivacySettingRepository;

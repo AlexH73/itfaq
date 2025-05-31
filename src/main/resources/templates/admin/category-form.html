@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Категория</title>
+</head>
+<body>
+<h1 th:text="${category.id == null ? 'Создать категорию' : 'Редактировать категорию'}"></h1>
+<form th:action="@{${category.id == null} ? '/admin/categories/create' : '/admin/categories/edit/' + ${category.id}}" th:object="${category}" method="post">
+    <label for="name">Название:</label>
+    <input type="text" id="name" th:field="*{name}" required>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <button type="submit">Сохранить</button>
+</form>
+<a th:href="@{/admin/categories}">Назад к списку</a>
+</body>
+</html>

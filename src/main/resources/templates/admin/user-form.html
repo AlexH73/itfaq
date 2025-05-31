@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователь</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/admin}">Главная админки</a>
+    <a href="javascript:history.back()">Назад</a>
+</nav>
+
+<h1 th:text="${user.id == null ? 'Создать пользователя' : 'Редактировать пользователя'}"></h1>
+<form th:action="@{${user.id == null} ? '/admin/users/create' : '/admin/users/edit/' + ${user.id}}" th:object="${user}" method="post">
+    <label for="username">Логин:</label>
+    <input type="text" id="username" th:field="*{username}" required>
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" th:field="*{email}">
+    <br>
+    <label for="roles">Роли (например, ROLE_USER,ROLE_ADMIN):</label>
+    <input type="text" id="roles" th:field="*{roles}">
+    <br>
+    <!-- Добавьте другие поля, если нужно -->
+    <button type="submit">Сохранить</button>
+</form>
+<a th:href="@{/admin/users}">К списку</a>
+</body>
+</html>

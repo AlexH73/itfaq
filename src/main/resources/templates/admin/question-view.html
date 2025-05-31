@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вопрос</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/admin}">Главная админки</a>
+    <a th:href="@{/admin/questions}">Назад</a>
+</nav>
+<h1>Просмотр вопроса</h1>
+<ul>
+    <li><strong>ID:</strong> <span th:text="${question.id}"></span></li>
+    <li><strong>Вопрос:</strong> <span th:text="${question.question}"></span></li>
+    <li><strong>Краткий ответ:</strong> <span th:text="${question.shortAnswer}"></span></li>
+    <li><strong>Подробный ответ:</strong> <span th:text="${question.detailedAnswer}"></span></li>
+    <li><strong>Категория:</strong> <span th:text="${question.category != null ? question.category.name : '—'}"></span></li>
+    <li><strong>Автор:</strong> <span th:text="${question.author != null ? question.author.username : '—'}"></span></li>
+    <li><strong>Язык:</strong> <span th:text="${question.language}"></span></li>
+    <li><strong>Уровень:</strong> <span th:text="${question.level}"></span></li>
+    <li><strong>Тема:</strong> <span th:text="${question.topic}"></span></li>
+    <li><strong>Создан:</strong> <span th:text="${#temporals.format(question.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+</ul>
+<a th:href="@{'/admin/questions/edit/' + ${question.id}}">Редактировать</a>
+<a th:href="@{/admin/questions}">К списку</a>
+</body>
+</html>

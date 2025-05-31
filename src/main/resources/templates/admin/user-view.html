@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователь</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/admin}">Главная админки</a>
+    <a th:href="@{/admin/users}">Назад</a>
+</nav>
+<h1>Пользователь: <span th:text="${user.username}"></span></h1>
+<ul>
+    <li>ID: <span th:text="${user.id}"></span></li>
+    <li>Email: <span th:text="${user.email}"></span></li>
+    <li>Роли: <span th:text="${user.roles}"></span></li>
+    <!-- Добавьте другие поля при необходимости -->
+</ul>
+<a th:href="@{'/admin/users/edit/' + ${user.id}}">Редактировать</a>
+<a th:href="@{/admin/users}">К списку</a>
+</body>
+</html>
