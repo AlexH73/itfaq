@@ -70,7 +70,7 @@ public class AdminQuestionController {
 
     @PostMapping("/edit/{id}")
     public String editQuestion(@PathVariable Long id, @ModelAttribute("question") Question question, BindingResult bindingResult, HttpServletRequest request, Model model) {
-        request.getParameterMap().forEach((k,v) -> System.out.println(k + " = " + Arrays.toString(v)));
+        //request.getParameterMap().forEach((k,v) -> System.out.println(k + " = " + Arrays.toString(v)));
         if (bindingResult.hasErrors()) {
             return "admin/question-form";
         }
