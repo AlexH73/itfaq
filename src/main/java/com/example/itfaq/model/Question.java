@@ -16,7 +16,7 @@ public class Question {
     private String language;
     private String level;
     private String topic;
-    private String question;
+    private String questionText;
     private String shortAnswer;
     private String detailedAnswer;
     @Builder.Default
@@ -31,14 +31,14 @@ public class Question {
 
     public Question() {} // ОБЯЗАТЕЛЕН для JPA/Spring
 
-    public Question(Long id, String language, String level, String topic, String question,
+    public Question(Long id, String language, String level, String topic, String questionText,
                     String shortAnswer, String detailedAnswer, LocalDateTime createdAt,
                     Category category, User author) {
         this.id = id;
         this.language = language;
         this.level = level;
         this.topic = topic;
-        this.question = question;
+        this.questionText = questionText;
         this.shortAnswer = shortAnswer;
         this.detailedAnswer = detailedAnswer;
         this.createdAt = createdAt;

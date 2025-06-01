@@ -30,7 +30,7 @@
         <tbody>
         <tr th:each="question : ${questions}">
             <td th:text="${question.id}"></td>
-            <td th:text="${question.question}"></td>
+            <td th:text="${question.questionText}"></td>
             <td th:text="${question.category != null ? question.category.name : '—'}"></td>
             <td th:text="${question.author != null ? question.author.username : '—'}"></td>
             <td>

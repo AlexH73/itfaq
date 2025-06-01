@@ -14,13 +14,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authz -> authz
-                        // Открываем доступ ко всем GET-запросам (чтение)
-                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                        // Открываем доступ к статике и страницам логина/регистрации
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/styles/**", "/js/**", "/images/**", "/public/**", "/faq/**").permitAll()
-                        // Для админки - только роль ADMIN
+                        // Для админки — только роль ADMIN
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // Все остальные запросы (POST, PUT, DELETE) требуют авторизации
+                        // Открываем доступ к статике и публичным страницам
+                        .requestMatchers("/", "/login", "/register", "/css/**", "/styles/**", "/js/**", "/images/**", "/public/**", "/faq/**").permitAll()
+                        // Все остальные GET-запросы разрешены (если нужно)
+                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                        // Все остальные запросы требуют авторизации
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

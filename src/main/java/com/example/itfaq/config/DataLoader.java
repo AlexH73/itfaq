@@ -32,7 +32,7 @@ public class DataLoader implements CommandLineRunner {
             q1.setLanguage("RU");
             q1.setLevel("easy");
             q1.setTopic("JVM");
-            q1.setQuestion("Что такое JVM?");
+            q1.setQuestionText("Что такое JVM?");
             q1.setShortAnswer("Виртуальная машина Java");
             q1.setDetailedAnswer("JVM — это виртуальная машина, исполняющая байт-код Java.");
             q1.setCategory(java);
@@ -41,7 +41,7 @@ public class DataLoader implements CommandLineRunner {
             q2.setLanguage("RU");
             q2.setLevel("medium");
             q2.setTopic("Spring Boot");
-            q2.setQuestion("Что делает Spring Boot?");
+            q2.setQuestionText("Что делает Spring Boot?");
             q2.setShortAnswer("Упрощает создание приложений Spring");
             q2.setDetailedAnswer("Spring Boot — это инструмент для быстрого создания production-ready приложений на Spring.");
             q2.setCategory(spring);

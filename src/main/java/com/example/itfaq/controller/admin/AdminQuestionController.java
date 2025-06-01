@@ -4,6 +4,7 @@ import com.example.itfaq.model.Question;
 import com.example.itfaq.repository.QuestionRepository;
 import com.example.itfaq.repository.CategoryRepository;
 import com.example.itfaq.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -67,7 +69,8 @@ public class AdminQuestionController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editQuestion(@PathVariable Long id, @ModelAttribute("question") Question question, BindingResult bindingResult) {
+    public String editQuestion(@PathVariable Long id, @ModelAttribute("question") Question question, BindingResult bindingResult, HttpServletRequest request, Model model) {
+        request.getParameterMap().forEach((k,v) -> System.out.println(k + " = " + Arrays.toString(v)));
         if (bindingResult.hasErrors()) {
             return "admin/question-form";
         }

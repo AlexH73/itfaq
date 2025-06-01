@@ -2,12 +2,12 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${question.question}">Вопрос</title>
+    <title th:text="${question.questionText}">Вопрос</title>
     <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
 <a href="/" style="font-size:0.9em;">← На главную</a>
-<h1 th:text="${question.question}">Вопрос</h1>
+<h1 th:text="${question.questionText}">Вопрос</h1>
 
 <div class="question-meta">
         <span th:if="${question.category != null}">

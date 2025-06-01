@@ -11,7 +11,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByLevel(String level);
     List<Question> findByTopic(String topic);
     List<Question> findByTopicContainingIgnoreCase(String topic);
-    List<Question> findByQuestionContainingIgnoreCase(String search);
-    List<Question> findByQuestionContainingIgnoreCaseOrDetailedAnswerContainingIgnoreCase(String search1, String search2);
+    List<Question> findByQuestionTextContainingIgnoreCase(String search);
+    List<Question> findByQuestionTextContainingIgnoreCaseOrDetailedAnswerContainingIgnoreCase(String search1, String search2);
     List<Question> findByCategoryIdAndLevelAndLanguageAndTopic(Long categoryId, String level, String language, String topic);
 }

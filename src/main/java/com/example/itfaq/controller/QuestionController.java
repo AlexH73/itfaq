@@ -30,7 +30,7 @@ public class QuestionController {
     ) {
         // Поиск по тексту вопроса или подробному ответу
         if (search != null && !search.isEmpty()) {
-            return questionRepo.findByQuestionContainingIgnoreCaseOrDetailedAnswerContainingIgnoreCase(search, search);
+            return questionRepo.findByQuestionTextContainingIgnoreCaseOrDetailedAnswerContainingIgnoreCase(search, search);
         }
         // Поиск по части темы (например, topic=Spring найдёт "Spring Boot")
         if (topic != null && !topic.isEmpty()) {
@@ -73,7 +73,7 @@ public class QuestionController {
                     q.setLanguage(updated.getLanguage());
                     q.setLevel(updated.getLevel());
                     q.setTopic(updated.getTopic());
-                    q.setQuestion(updated.getQuestion());
+                    q.setQuestionText(updated.getQuestionText());
                     q.setShortAnswer(updated.getShortAnswer());
                     q.setDetailedAnswer(updated.getDetailedAnswer());
                     // Категория

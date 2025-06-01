@@ -14,7 +14,7 @@
     <h2 th:text="${question.id == null ? 'Создать вопрос' : 'Редактировать вопрос'}"></h2>
     <form th:action="@{${question.id == null} ? '/admin/questions/create' : '/admin/questions/edit/' + ${question.id}}" th:object="${question}" method="post">
         <label for="question">Вопрос:</label>
-        <input type="text" id="question" th:field="*{question}" required>
+        <input type="text" id="question" th:field="*{questionText}" required>
 
         <label for="shortAnswer">Краткий ответ:</label>
         <input type="text" id="shortAnswer" th:field="*{shortAnswer}" required>
