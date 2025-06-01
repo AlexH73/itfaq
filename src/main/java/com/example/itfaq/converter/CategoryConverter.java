@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CategoryConverter implements Converter<Long, Category> {
+public class CategoryConverter implements Converter<String, Category> {
     private final CategoryRepository categoryRepository;
 
     public CategoryConverter(CategoryRepository categoryRepository) {
@@ -14,7 +14,15 @@ public class CategoryConverter implements Converter<Long, Category> {
     }
 
     @Override
-    public Category convert(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+    public Category convert(String source) {
+        if (source == null || source.isEmpty()) {
+            return null;
+        }
+        try {
+            Long id = Long.valueOf(source);
+            return categoryRepository.findById(id).orElse(null);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }
