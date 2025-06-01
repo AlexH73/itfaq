@@ -34,10 +34,10 @@
             <td th:text="${question.category != null ? question.category.name : '—'}"></td>
             <td th:text="${question.author != null ? question.author.username : '—'}"></td>
             <td>
-                <a th:href="@{'/admin/questions/' + ${question.id}}" class="button">Просмотр</a>
-                <a th:href="@{'/admin/questions/edit/' + ${question.id}}" class="button">Редактировать</a>
+                <a th:href="@{'/admin/questions/' + ${question.id}}" class="button small">Просмотр</a>
+                <a th:href="@{'/admin/questions/edit/' + ${question.id}}" class="button small">Редактировать</a>
                 <form th:action="@{'/admin/questions/delete/' + ${question.id}}" method="post" style="display:inline;">
-                    <button type="submit" onclick="return confirm('Удалить вопрос?')" class="button" style="background:#e53e3e;">Удалить</button>
+                    <button type="submit" onclick="return confirm('Удалить вопрос?')" class="button small" style="background:#e53e3e;">Удалить</button>
                 </form>
             </td>
         </tr>

@@ -14,9 +14,9 @@
     <h2>Просмотр вопроса</h2>
     <ul>
         <li><strong>ID:</strong> <span th:text="${question.id}"></span></li>
-        <li><strong>Вопрос:</strong> <span th:text="${question.questionText}"></span></li>
-        <li><strong>Краткий ответ:</strong> <span th:text="${question.shortAnswer}"></span></li>
-        <li><strong>Подробный ответ:</strong> <span th:text="${question.detailedAnswer}"></span></li>
+        <li><strong>Вопрос:</strong> <span th:utext="${question.questionText}"></span></li>
+        <li><strong>Краткий ответ:</strong> <span th:utext="${question.shortAnswer}"></span></li>
+        <li><strong>Подробный ответ:</strong> <span th:utext="${question.detailedAnswer}"></span></li>
         <li><strong>Категория:</strong> <span th:text="${question.category != null ? question.category.name : '—'}"></span></li>
         <li><strong>Автор:</strong> <span th:text="${question.author != null ? question.author.username : '—'}"></span></li>
         <li><strong>Язык:</strong> <span th:text="${question.language}"></span></li>

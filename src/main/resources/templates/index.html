@@ -1,17 +1,42 @@
-<!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="'ITFAQ — Категории'">ITFAQ — Категории</title>
-    <link rel="stylesheet" href="/styles/styles.css">
-</head>
-<body>
-<h1>Категории вопросов</h1>
-<ul>
-    <!-- Thymeleaf цикл -->
-    <li th:each="cat : ${categories}">
-        <a th:href="@{'/category/' + ${cat.id}}" th:text="${cat.name}">Категория</a>
-    </li>
-</ul>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<title layout:fragment="title">Главная — ITFAQ</title>
+<section layout:fragment="content">
+
+    <div class="main-hero">
+        <div class="main-hero-text">
+            <h1>ITFAQ — вопросы и ответы по IT</h1>
+            <p>Образовательный портал для подготовки к собеседованиям и самостоятельного изучения IT-тем.</p>
+            <a href="/about" class="button main-hero-button">О портале</a>
+        </div>
+    </div>
+
+    <div class="category-list">
+        <h2>Категории технологий</h2>
+        <div class="category-cards">
+            <!-- Пример для Thymeleaf, если есть список категорий -->
+            <div class="category-card" th:each="cat : ${categories}" th:classappend="${cat.cssClass}">
+                <a th:href="@{'/category/' + ${cat.id}}">
+                    <span th:text="${cat.name}">Категория</span>
+                </a>
+            </div>
+            <!-- Вручную: 
+            <div class="category-card java"><a href="/category/java">Java</a></div>
+            <div class="category-card html"><a href="/category/html">HTML</a></div>
+            ... -->
+        </div>
+    </div>
+
+    <div class="popular-questions">
+        <h2>Популярные вопросы</h2>
+        <ul>
+            <!-- <li><a href="/question/1">Что такое JVM?</a></li>
+            <li><a href="/question/2">Чем отличается Stack от Heap?</a></li> -->
+            <!-- Или через th:each -->
+            <li th:each="q : ${popularQuestions}"><a th:href="@{'/question/' + ${q.id}}" th:text="${q.questionText}"></a></li>
+        </ul>
+    </div>
+
+</section>
 </html>

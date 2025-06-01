@@ -131,7 +131,7 @@ a.button, button, input[type="submit"] {
     transition: background 0.2s;
 }
 a.button.small, button.small, input.small[type="submit"] {
-    padding: 6px 6px;
+    padding: 4px 4px;
 }
 a.button:hover, button:hover, input[type="submit"]:hover {
     background: #2563eb;

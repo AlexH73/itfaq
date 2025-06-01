@@ -19,7 +19,9 @@
     </nav>
     <h2 th:text="${category.id == null ? 'Создать категорию' : 'Редактировать категорию'}"></h2>
     <form th:action="@{${category.id == null} ? '/admin/categories/create' : '/admin/categories/edit/' + ${category.id}}" th:object="${category}" method="post">
-        <label for="name">Название:</label>
+        <label for="class">Класс:</label>
+        <input type="text" id="class" th:field="*{cssClass}" required>
+        <div th:if="${#fields.hasErrors('cssClass')}" th:errors="*{cssClass}" class="error"></div>        <label for="name">Название:</label>
         <input type="text" id="name" th:field="*{name}" required>
         <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></div>
         <button type="submit" class="button">Сохранить</button>

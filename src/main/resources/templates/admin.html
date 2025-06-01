@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Админ-панель</title>
-    <link rel="stylesheet" href="../static/admin/styles.css">
     <link rel="stylesheet" href="/admin/styles.css">
 </head>
 <body>
@@ -73,6 +72,10 @@
             </a>
         </div>
         <a href="/" class="home-link">На главную</a>
+
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="button" style="background:#e53e3e;">Выйти</button>
+        </form>
     </div>
 </body>
 </html>

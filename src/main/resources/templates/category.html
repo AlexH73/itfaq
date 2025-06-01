@@ -1,28 +1,32 @@
-<!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="'Категория: ' + ${category.name}">Категория</title>
-    <link rel="stylesheet" href="/styles/styles.css">
-</head>
-<body>
-<h1 th:text="'Категория: ' + ${category.name}">Категория</h1>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main}">
+<title layout:fragment="title" th:text="${category.name} + ': Вопросы и ответы — FAQ IT Portal'">Категория</title>
+<section layout:fragment="content">
 
-<div class="switch-links">
-    <span>Ссылки на эту категорию:</span>
-    <a th:href="@{'/category/' + ${category.id}}">по id</a>
-    <a th:href="@{'/category'(name=${category.name})}">по имени</a>
-    <a href="/">На главную</a>
-</div>
+    <h1 th:text="${category.name} + ': Вопросы и ответы'">Категория</h1>
+    <nav class="toc section-block" aria-label="Оглавление Java">
+        <h2>Вопросы</h2>
+        <ul>
+            <li th:each="q : ${questions}">
+                <a th:href="@{'/question/' + ${q.id}}" th:utext="${q.questionText}">Вопрос</a>
+            </li>
+            <div th:if="${questions.size() == 0}" class="empty-message">
+                В этой категории пока нет вопросов.
+            </div>
+        </ul>
 
-<h2>Вопросы</h2>
-<ul class="questions-list">
-    <li th:each="q : ${questions}">
-        <a th:href="@{'/question/' + ${q.id}}" th:text="${q.question}">Вопрос</a>
-    </li>
-</ul>
-<div th:if="${questions.size() == 0}">
-    В этой категории пока нет вопросов.
-</div>
-</body>
+    </nav>
+
+    <div class="switch-links" style="margin-bottom:1.5em;">
+        <span>Ссылки на эту категорию:</span>
+        <a th:href="@{'/category/' + ${category.id}}">по id</a>
+        <a th:href="@{'/category'(name=${category.name})}">по имени</a>
+        <a href="/">На главную</a>
+    </div>
+</section>
+<section>
+    <p>Добро пожаловать в раздел вопросов и ответов по Java! Здесь собраны самые частые вопросы, примеры кода, краткие и
+        подробные объяснения.</p>
+</section>
 </html>

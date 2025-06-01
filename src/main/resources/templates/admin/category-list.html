@@ -1,31 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/admin/styles.css}" />
     <title>Управление категориями</title>
-</head>
-<body>
-<h1>Категории</h1>
-<a th:href="@{/admin/categories/create}">Добавить категорию</a>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Название</th>
-        <th>Действия</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="category : ${categories}">
-        <td th:text="${category.id}"></td>
-        <td th:text="${category.name}"></td>
-        <td>
-            <a th:href="@{'/admin/categories/edit/' + ${category.id}}">Редактировать</a>
-            <form th:action="@{'/admin/categories/delete/' + ${category.id}}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Удалить категорию?')">Удалить</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</body>
+  </head>
+  <body>
+    <div class="admin-panel-container">
+      <nav class="admin-nav">
+        <a th:href="@{/admin}">Главная</a>
+        <a th:href="@{/admin/news}">Новости</a>
+        <a th:href="@{/admin/users}">Пользователи</a>
+        <a th:href="@{/admin/categories}" class="active">Категории</a>
+        <a th:href="@{/admin/questions}">Вопросы</a>
+        <a th:href="@{/admin/privacy}">Приватность</a>
+      </nav>
+      <h2>Категории</h2>
+      <a th:href="@{/admin/categories/create}" class="button"
+        >Добавить категорию</a
+      >
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Класс</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="category : ${categories}">
+            <td th:text="${category.id}"></td>
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.cssClass}"></td>
+            <td>
+              <a th:href="@{'/admin/categories/edit/' + ${category.id}}" class="button"
+                >Редактировать</a
+              >
+              <form
+                th:action="@{'/admin/categories/delete/' + ${category.id}}"
+                method="post"
+                style="display: inline"
+              >
+                <button
+                  type="submit"
+                  class="button"
+                  style="background:#e53e3e;"
+                  onclick="return confirm('Удалить категорию?')"
+                >
+                  Удалить
+                </button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
 </html>

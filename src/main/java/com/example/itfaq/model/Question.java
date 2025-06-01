@@ -17,8 +17,13 @@ public class Question {
     private String level;
     private String topic;
     private String questionText;
+
+    @Column(columnDefinition = "text")
     private String shortAnswer;
+
+    @Column(columnDefinition = "text")
     private String detailedAnswer;
+
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 

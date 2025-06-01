@@ -8,8 +8,12 @@
 <body>
 <div class="admin-panel-container">
     <nav class="admin-nav">
-        <a th:href="@{/admin}">Главная</a>
-        <a th:href="@{/admin/users}" class="active">Пользователи</a>
+      <a th:href="@{/admin}">Главная</a>
+      <a th:href="@{/admin/news}">Новости</a>
+      <a th:href="@{/admin/users}" class="active">Пользователи</a>
+      <a th:href="@{/admin/categories}">Категории</a>
+      <a th:href="@{/admin/questions}">Вопросы</a>
+      <a th:href="@{/admin/privacy}">Приватность</a>
     </nav>
     <h2>Пользователи</h2>
     <a th:href="@{/admin/users/create}" class="button">Создать пользователя</a>

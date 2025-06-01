@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍🎓</text></svg>"
+    />
+    <title layout:fragment="title">ITFAQ</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+</head>
+<body>
+<header class="header">
+    <div class="container header-content">
+        <a href="/" class="logo">ITFAQ</a>
+        <nav class="main-nav">
+            <a href="/" class="nav-link active">Главная</a>
+            <a href="/category/1" class="nav-link">Java</a>
+            <a href="/index.html" class="nav-link">HTML</a>
+            <a href="/" class="nav-link">CSS</a>
+            <a href="/" class="nav-link">JS</a>
+            <a href="/" class="nav-link">SQL</a>
+            <a href="/about.html" class="nav-link">О проекте</a>
+        </nav>
+        <div class="header-controls">
+            <select id="lang-switcher" aria-label="Sprache">
+                <option value="ru" selected>RU</option>
+                <option value="de">DE</option>
+            </select>
+            <button id="theme-toggle" aria-label="Theme wechseln">🌙</button>
+        </div>
+    </div>
+</header>
+
+<main class="container main-content">
+    <section class="search-section">
+        <input type="search" id="search" placeholder="Suche nach Fragen, Stichworten..." autocomplete="off" />
+    </section>
+    <section class="categories" layout:fragment="content">
+        <!-- Контент конкретной страницы -->
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <small>© 2025 FAQ IT Portal. <a href="https://github.com/AlexH73/frontend_cohort57/tree/main/projects/itfaq">GitHub</a> | <a href="about.de.html">Über das Projekt</a></small>
+        <span class="footer-right">Hell-/Dunkelmodus • RU/DE • Open Source</span>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
+<script>
+    // Theme
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.onclick = () => {
+      document.body.classList.toggle('dark');
+      themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    };
+    // Sprache
+    document.getElementById('lang-switcher').onchange = e => {
+      window.location.href = e.target.value === 'ru' ? 'index.html' : 'index.de.html';
+    };
+</script>
+</body>
+</html>
