@@ -21,6 +21,19 @@
                 <div th:utext="${question.detailedAnswer}">Подробный ответ</div>
             </div>
         </div>
+
+
+
+        <div id="like-section" data-question-id="[[${question.id}]]">
+            <span id="like-count">[[${question.likeCount}]]</span>
+            <button id="like-btn" th:if="${!likedByCurrentUser}" type="button">👍 Лайк</button>
+            <button id="unlike-btn" th:if="${likedByCurrentUser}" type="button">👎 Убрать лайк</button>
+        </div>
+
+
+
+
+
         <div>
             <a th:href="@{'/category/' + ${question.category.id}}">← Назад к категории</a>
         </div>

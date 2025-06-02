@@ -1,23 +1,37 @@
 package com.example.itfaq.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import lombok.*;
 
 @Entity
 @Table(name = "likes", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "targetType", "targetId"})
+        @UniqueConstraint(columnNames = {"user_id", "object_type", "object_id"})
 })
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Like {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    private String targetType; // "NEWS" или "COMMENT"
-    private Long targetId;
+    @Column(name = "object_type", nullable = false, length = 30)
+    private String objectType; // Например: "question", "news", "comment"
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "object_id", nullable = false)
+    private Long objectId;
 
-    // getters, setters
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private java.time.LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = java.time.LocalDateTime.now();
+    }
 }

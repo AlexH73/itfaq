@@ -1,14 +1,15 @@
 package com.example.itfaq.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,22 +39,8 @@ public class Question {
     @ManyToOne
     private User author;
 
-    public Question() {} // ОБЯЗАТЕЛЕН для JPA/Spring
-
-    public Question(Long id, String language, String level, String topic, String questionText,
-                    String shortAnswer, String detailedAnswer, LocalDateTime createdAt,
-                    Category category, User author) {
-        this.id = id;
-        this.language = language;
-        this.level = level;
-        this.topic = topic;
-        this.questionText = questionText;
-        this.shortAnswer = shortAnswer;
-        this.detailedAnswer = detailedAnswer;
-        this.createdAt = createdAt;
-        this.category = category;
-        this.author = author;
-    }
+    @Transient
+    private Long likeCount;
 
     @PrePersist
     protected void onCreate() {
