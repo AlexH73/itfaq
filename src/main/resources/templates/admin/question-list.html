@@ -21,6 +21,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Дата</th>
             <th>Вопрос</th>
             <th>Категория</th>
             <th>Автор</th>
@@ -30,7 +31,26 @@
         <tbody>
         <tr th:each="question : ${questions}">
             <td th:text="${question.id}"></td>
-            <td th:text="${question.questionText}"></td>
+            <td>
+                <span th:text="${#temporals.format(question.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                <span th:if="${question.updatedAt != null and question.updatedAt != question.createdAt}">
+            <br/>
+            <small>изм.<br/>
+                <span th:text="${#temporals.format(question.updatedAt, 'yyyy-MM-dd HH:mm')}"></span>
+            <br/>
+                <span th:if="${question.editReason != null and question.editReason != ''}">
+                    (<span  th:text="${#strings.length(question.editReason) > 10} ?
+             ${question.editReason.substring(0, 10)} + '...' :
+             ${question.editReason}">
+                    </span>)
+                </span>
+            </small>
+        </span>
+            </td>
+            <td th:text="${#strings.length(question.questionText) > 30} ?
+             ${question.questionText.substring(0, 30)} + '...' :
+             ${question.questionText}">
+            </td>
             <td th:text="${question.category != null ? question.category.name : '—'}"></td>
             <td th:text="${question.author != null ? question.author.username : '—'}"></td>
             <td>

@@ -43,6 +43,10 @@
         <label for="topic">Тема:</label>
         <input type="text" id="topic" th:field="*{topic}">
 
+        <label>Причина редактирования:
+            <input type="text" name="editReason" th:value="${question.editReason}"/>
+        </label>
+
         <button type="submit" class="button">Сохранить</button>
         <a th:href="@{/admin/questions}" class="button" style="background:#e9eef6;color:#2d3a4b;">К списку</a>
     </form>

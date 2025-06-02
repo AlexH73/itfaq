@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
 }
+td small{font-size: xx-small;}
 .admin-panel-container {
     max-width: 900px;
     margin: 40px auto;
@@ -131,7 +132,9 @@ a.button, button, input[type="submit"] {
     transition: background 0.2s;
 }
 a.button.small, button.small, input.small[type="submit"] {
-    padding: 4px 4px;
+    padding: 8px 6px;
+     font-size: 6px;
+     text-shadow: 0.1em 0.1em #000000a1;
 }
 a.button:hover, button:hover, input[type="submit"]:hover {
     background: #2563eb;

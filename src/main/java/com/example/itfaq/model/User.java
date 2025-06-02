@@ -3,6 +3,7 @@ package com.example.itfaq.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,14 @@ public class User {
     private String password;
     private String email;
 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    private String editReason;
+
+
     @Builder.Default
     private boolean enabled = true;
 
@@ -32,4 +41,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="role_id")
     )
     private Set<Role> roles;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = this.createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

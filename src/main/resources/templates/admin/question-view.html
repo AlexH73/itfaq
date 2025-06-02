@@ -17,12 +17,23 @@
         <li><strong>Вопрос:</strong> <span th:utext="${question.questionText}"></span></li>
         <li><strong>Краткий ответ:</strong> <span th:utext="${question.shortAnswer}"></span></li>
         <li><strong>Подробный ответ:</strong> <span th:utext="${question.detailedAnswer}"></span></li>
+        <hr>
         <li><strong>Категория:</strong> <span th:text="${question.category != null ? question.category.name : '—'}"></span></li>
         <li><strong>Автор:</strong> <span th:text="${question.author != null ? question.author.username : '—'}"></span></li>
         <li><strong>Язык:</strong> <span th:text="${question.language}"></span></li>
         <li><strong>Уровень:</strong> <span th:text="${question.level}"></span></li>
         <li><strong>Тема:</strong> <span th:text="${question.topic}"></span></li>
-        <li><strong>Создан:</strong> <span th:text="${#temporals.format(question.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+        <li th:if="${question.createdAt != null and question.updatedAt != question.createdAt}">
+            <strong>Создан:</strong>
+            <span th:text="${#temporals.format(question.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+        <li th:if="${question.updatedAt != null and question.updatedAt != question.createdAt}">
+            <strong>Изменён:</strong>
+            <span th:text="${#temporals.format(question.updatedAt, 'yyyy-MM-dd HH:mm')}"></span>
+            <span th:if="${question.editReason != null and question.editReason != ''}">
+            (Причина: <span th:text="${question.editReason}"></span>)
+  </span>
+        </li>
+
     </ul>
     <a th:href="@{'/admin/questions/edit/' + ${question.id}}" class="button">Редактировать</a>
     <a th:href="@{/admin/questions}" class="button" style="background:#e9eef6;color:#2d3a4b;">К списку</a>

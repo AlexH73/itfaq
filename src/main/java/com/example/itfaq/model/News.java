@@ -25,10 +25,12 @@ public class News {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private String editReason;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -38,6 +40,18 @@ public class News {
     private User author;
 
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = this.createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

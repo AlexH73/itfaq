@@ -13,10 +13,24 @@ public class Comment {
     private User author;
     @Column(columnDefinition = "TEXT")
     private String content;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    private String editReason;
 
     @ManyToOne
     private Comment parentComment; // если нужны вложенные комментарии
 
-    // getters, setters
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = this.createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

@@ -24,8 +24,12 @@ public class Question {
     @Column(columnDefinition = "text")
     private String detailedAnswer;
 
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    private String editReason;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -49,5 +53,17 @@ public class Question {
         this.createdAt = createdAt;
         this.category = category;
         this.author = author;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 }

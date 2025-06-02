@@ -12,8 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
-
 
 @Controller
 @RequestMapping("/admin/questions")
@@ -44,6 +44,7 @@ public class AdminQuestionController {
         if (bindingResult.hasErrors()) {
             return "admin/question-form";
         }
+        // createdAt проставится автоматически через @PrePersist
         questionRepository.save(question);
         return "redirect:/admin/questions";
     }
@@ -68,13 +69,35 @@ public class AdminQuestionController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editQuestion(@PathVariable Long id, @ModelAttribute("question") Question question, BindingResult bindingResult, HttpServletRequest request, Model model) {
-        //request.getParameterMap().forEach((k,v) -> System.out.println(k + " = " + Arrays.toString(v)));
+    public String editQuestion(
+            @PathVariable Long id,
+            @ModelAttribute("question") Question formQuestion,
+            BindingResult bindingResult,
+            @RequestParam(value = "editReason", required = false) String editReason,
+            Model model
+    ) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("users", userRepository.findAll());
             return "admin/question-form";
         }
-        question.setId(id);
-        questionRepository.save(question);
+        // Найдём старую версию, чтобы не потерять createdAt!
+        Optional<Question> oldOpt = questionRepository.findById(id);
+        if (oldOpt.isPresent()) {
+            Question old = oldOpt.get();
+            // Обновляем только нужные поля
+            old.setLanguage(formQuestion.getLanguage());
+            old.setLevel(formQuestion.getLevel());
+            old.setTopic(formQuestion.getTopic());
+            old.setQuestionText(formQuestion.getQuestionText());
+            old.setShortAnswer(formQuestion.getShortAnswer());
+            old.setDetailedAnswer(formQuestion.getDetailedAnswer());
+            old.setCategory(formQuestion.getCategory());
+            old.setAuthor(formQuestion.getAuthor());
+            old.setUpdatedAt(LocalDateTime.now());
+            old.setEditReason(editReason);
+            questionRepository.save(old);
+        }
         return "redirect:/admin/questions";
     }
 
