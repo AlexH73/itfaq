@@ -24,10 +24,10 @@
 
 
 
-        <div id="like-section" data-question-id="[[${question.id}]]">
-            <span id="like-count">[[${question.likeCount}]]</span>
-            <button id="like-btn" th:if="${!likedByCurrentUser}" type="button">👍 Лайк</button>
-            <button id="unlike-btn" th:if="${likedByCurrentUser}" type="button">👎 Убрать лайк</button>
+        <div id="like-section" th:data-question-id="${question.id}">
+            <span id="like-count" th:text="${question.likeCount}">0</span>
+            <button id="like-btn" th:if="${!likedByCurrentUser}" type="button">👍</button>
+            <button id="unlike-btn" th:if="${likedByCurrentUser}" type="button">👎</button>
         </div>
 
 

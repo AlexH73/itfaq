@@ -13,8 +13,9 @@
     />
     <title layout:fragment="title">ITFAQ</title>
     <link rel="stylesheet" href="/styles/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css">-->
+    <link rel="stylesheet" href="/styles/css/github.min.css">
+    <script src="/js/highlight.min.js"></script>
 </head>
 <body>
 <header class="header">
@@ -54,87 +55,11 @@
         <span class="footer-right">Hell-/Dunkelmodus • RU/DE • Open Source</span>
     </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+<script src="/js/like.js"></script>
+<script src="/js/scripts.js"></script>
+
 <script>
     hljs.highlightAll();
-</script>
-<script>
-    // Theme
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.onclick = () => {
-      document.body.classList.toggle('dark');
-      themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    };
-    // Sprache
-    document.getElementById('lang-switcher').onchange = e => {
-      window.location.href = e.target.value === 'ru' ? 'index.html' : 'index.de.html';
-    };
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const likeSection = document.getElementById('like-section');
-        if (!likeSection) return;
-
-        const questionId = likeSection.getAttribute('data-question-id');
-        const likeCountSpan = document.getElementById('like-count');
-        const likeBtn = document.getElementById('like-btn');
-        const unlikeBtn = document.getElementById('unlike-btn');
-
-        // Функция для обновления счетчика и кнопок
-        function updateLikeUI(isLiked, count) {
-            likeCountSpan.textContent = count;
-            if (isLiked) {
-                if (likeBtn) likeBtn.style.display = 'none';
-                if (unlikeBtn) unlikeBtn.style.display = '';
-            } else {
-                if (likeBtn) likeBtn.style.display = '';
-                if (unlikeBtn) unlikeBtn.style.display = 'none';
-            }
-        }
-
-        if (likeBtn) {
-            likeBtn.addEventListener('click', function () {
-                fetch(`/api/likes/question/${questionId}`, {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': getCsrfToken(), // если нужен CSRF
-                    }
-                }).then(r => {
-                    if (r.ok) return r.json();
-                    if (r.status === 401) { alert('Войдите для лайка!'); return; }
-                    return r.json();
-                }).then(count => {
-                    updateLikeUI(true, count);
-                });
-            });
-        }
-
-        if (unlikeBtn) {
-            unlikeBtn.addEventListener('click', function () {
-                fetch(`/api/likes/question/${questionId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': getCsrfToken(),
-                    }
-                }).then(r => {
-                    if (r.ok) return r.json();
-                    if (r.status === 401) { alert('Войдите для дизлайка!'); return; }
-                    return r.json();
-                }).then(count => {
-                    updateLikeUI(false, count);
-                });
-            });
-        }
-
-        // Если нужен CSRF-токен для Spring Security
-        function getCsrfToken() {
-            const meta = document.querySelector('meta[name="_csrf"]');
-            return meta ? meta.content : '';
-        }
-    });
 </script>
 </body>
 </html>

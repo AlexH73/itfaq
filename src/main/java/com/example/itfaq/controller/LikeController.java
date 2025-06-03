@@ -2,8 +2,10 @@ package com.example.itfaq.controller;
 
 import com.example.itfaq.model.Like;
 import com.example.itfaq.model.User;
+import com.example.itfaq.model.PrivacySetting;
 import com.example.itfaq.repository.LikeRepository;
 import com.example.itfaq.repository.UserRepository;
+import com.example.itfaq.repository.PrivacySettingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +19,12 @@ public class LikeController {
 
     private final LikeRepository likeRepository;
     private final UserRepository userRepository;
+    private final PrivacySettingRepository privacySettingRepository;
+
+    private boolean onlyAuthenticatedAllowed(String section) {
+        PrivacySetting setting = privacySettingRepository.findBySection(section).orElse(null);
+        return setting != null && "authenticated".equals(setting.getMode());
+    }
 
     @PostMapping("/{objectType}/{objectId}")
     public ResponseEntity<?> addLike(
@@ -24,16 +32,23 @@ public class LikeController {
             @PathVariable Long objectId,
             @AuthenticationPrincipal UserDetails userDetails) {
 
-        if (userDetails == null) {
+        boolean onlyAuthLike = onlyAuthenticatedAllowed("like");
+        if (onlyAuthLike && userDetails == null) {
             return ResponseEntity.status(401).body("Unauthorized");
         }
 
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
-        if (user == null) {
-            return ResponseEntity.status(404).body("User not found");
+        User user = null;
+        if (userDetails != null) {
+            user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(404).body("User not found");
+            }
         }
 
-        boolean alreadyLiked = likeRepository.findByUserAndObjectTypeAndObjectId(user, objectType, objectId).isPresent();
+        boolean alreadyLiked = false;
+        if (user != null) {
+            alreadyLiked = likeRepository.findByUserAndObjectTypeAndObjectId(user, objectType, objectId).isPresent();
+        }
         if (alreadyLiked) {
             return ResponseEntity.badRequest().body("Already liked");
         }
@@ -55,16 +70,22 @@ public class LikeController {
             @PathVariable Long objectId,
             @AuthenticationPrincipal UserDetails userDetails) {
 
-        if (userDetails == null) {
+        boolean onlyAuthDislike = onlyAuthenticatedAllowed("dislike");
+        if (onlyAuthDislike && userDetails == null) {
             return ResponseEntity.status(401).body("Unauthorized");
         }
 
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
-        if (user == null) {
-            return ResponseEntity.status(404).body("User not found");
+        User user = null;
+        if (userDetails != null) {
+            user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
+            if (user == null) {
+                return ResponseEntity.status(404).body("User not found");
+            }
         }
 
-        likeRepository.deleteByUserAndObjectTypeAndObjectId(user, objectType, objectId);
+        if (user != null) {
+            likeRepository.deleteByUserAndObjectTypeAndObjectId(user, objectType, objectId);
+        }
 
         long likeCount = likeRepository.countByObjectTypeAndObjectId(objectType, objectId);
         return ResponseEntity.ok(likeCount);
